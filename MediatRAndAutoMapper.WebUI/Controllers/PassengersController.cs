@@ -10,6 +10,7 @@ using MediatRAndAutoMapper.WebUI.Models.DataContexts;
 using MediatRAndAutoMapper.WebUI.Models.Entities;
 using MediatR;
 using MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule;
+using MediatRAndAutoMapper.WebUI.AppCode.Infrastructure;
 
 namespace MediatRAndAutoMapper.WebUI.Controllers
 {
@@ -32,14 +33,9 @@ namespace MediatRAndAutoMapper.WebUI.Controllers
             return View(passengers);
         }
 
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(PassengerSingleQuery query)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var passenger = await db.Passengers.FirstOrDefaultAsync(m => m.Id == id);
+            PassengerViewModel passenger = await mediator.Send(query);
 
             if (passenger == null)
             {
@@ -56,52 +52,50 @@ namespace MediatRAndAutoMapper.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Surname,Age,TicketNumber")] Passenger passenger)
+        public async Task<IActionResult> Create([Bind("Name,Surname,Age,TicketNumber")] PassengerCreateCommand request)
         {
-            if (ModelState.IsValid)
-            {
-                db.Add(passenger);
-                await db.SaveChangesAsync();
+            int id = await mediator.Send(request);
+
+            if (id > 0)
                 return RedirectToAction(nameof(Index));
-            }
-            return View(passenger);
+
+            return View(request);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(PassengerSingleQuery query)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            PassengerViewModel passenger = await mediator.Send(query);
 
-            var passenger = await db.Passengers.FindAsync(id);
             if (passenger == null)
             {
                 return NotFound();
             }
+
             return View(passenger);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([FromRoute] int id, [Bind("Id,Name,Surname,Age,TicketNumber")] Passenger passenger)
+        public async Task<IActionResult> Edit([FromRoute] int id, [Bind("Id,Name,Surname,Age,TicketNumber")] PassengerEditCommand request)
         {
-            if (id != passenger.Id)
+            if (id != request.Id)
             {
                 return NotFound();
             }
 
-            return View(passenger);
+            int identifier = await mediator.Send(request);
+
+            if (identifier > 0)
+                return RedirectToAction(nameof(Index));
+
+            return View(request);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(PassengereRemoveCommand request)
         {
-            var passenger = await db.Passengers.FindAsync(id);
-            db.Passengers.Remove(passenger);
-            await db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            JsonCommandResponse response = await mediator.Send(request);
+
+            return Json(response);
         }
     }
 }

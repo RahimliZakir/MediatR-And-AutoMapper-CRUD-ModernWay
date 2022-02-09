@@ -8,6 +8,11 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 IConfiguration conf = builder.Configuration;
 
 IServiceCollection services = builder.Services;
+services.AddRouting(options =>
+{
+    options.LowercaseUrls = true;
+});
+
 services.AddControllersWithViews();
 
 services.AddDbContext<TransportDbContext>(options =>
@@ -29,9 +34,11 @@ if (env.IsDevelopment())
 
 app.UseStaticFiles();
 
+app.UseRouting();
+
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapControllerRoute("default", "{controller=Passengers}/{action=Index}/{id?}");
 });
 
 app.Run();

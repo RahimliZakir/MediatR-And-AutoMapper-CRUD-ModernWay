@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule
 {
-    public class PassengerCreateCommand : IRequest<int>
+    public class PassengerCreateCommand : PassengerViewModel, IRequest<int>
     {
         public class PassengerCreateCommandHandler : IRequestHandler<PassengerCreateCommand, int>
         {

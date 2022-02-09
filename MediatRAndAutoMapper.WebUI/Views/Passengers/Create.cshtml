@@ -1,15 +1,29 @@
-﻿@model MediatRAndAutoMapper.WebUI.Models.Entities.Passenger
+﻿@model Passenger
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+@section css{
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
 
-<h4>Passenger</h4>
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+    </style>
+}
+
+<h1 class="text-center">Create</h1>
+
+<h4 class="text-center">Passenger</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+
+    <div class="col-md-8">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -28,23 +42,21 @@
                 <span asp-validation-for="Age" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TicketNumber" class="control-label"></label>
+                <label asp-for="TicketNumber" class="control-label">Ticket Number</label>
                 <input asp-for="TicketNumber" class="form-control" />
                 <span asp-validation-for="TicketNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
-                <input asp-for="CreatedDate" class="form-control" />
-                <span asp-validation-for="CreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            <div class="form-group mt-2">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-danger">Back to List</a>
 </div>
 
+@section js{
+    <script src="~/libs/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/libs/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

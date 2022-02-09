@@ -7,6 +7,10 @@ namespace MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule
     {
         public PassengerProfile()
         {
+            CreateMap<PassengerCreateCommand, Passenger>();
+
+            CreateMap<PassengerEditCommand, Passenger>();
+
             CreateMap<Passenger, PassengerViewModel>();
         }
     }
