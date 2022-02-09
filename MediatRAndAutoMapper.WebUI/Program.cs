@@ -1,4 +1,5 @@
 using MediatR;
+using MediatRAndAutoMapper.WebUI.AppCode.DataSeeds;
 using MediatRAndAutoMapper.WebUI.Models.DataContexts;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,8 @@ if (env.IsDevelopment())
 }
 
 app.UseStaticFiles();
+
+app.SeedData();
 
 app.UseRouting();
 

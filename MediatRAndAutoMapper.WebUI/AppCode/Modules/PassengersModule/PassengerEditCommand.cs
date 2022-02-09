@@ -38,11 +38,16 @@ namespace MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule
                     return 0;
                 }
 
-                Passenger passenger = mapper.Map<Passenger>(request);
-
                 if (ctx.IsValid())
                 {
+                    Passenger passenger = mapper.Map(request, entity);
+
+                    // 1. Way
+                    //db.Entry(passenger).State = EntityState.Modified;
+
+                    // 2. Way
                     db.Passengers.Update(passenger);
+
                     await db.SaveChangesAsync(cancellationToken);
 
                     return entity.Id;

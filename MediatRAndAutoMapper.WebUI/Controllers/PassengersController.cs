@@ -75,12 +75,12 @@ namespace MediatRAndAutoMapper.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit([FromRoute] int id, [Bind("Id,Name,Surname,Age,TicketNumber")] PassengerEditCommand request)
+        public async Task<IActionResult> Edit(/*[FromRoute] int id, */[Bind("Id,Name,Surname,Age,TicketNumber,CreatedDate")] PassengerEditCommand request)
         {
-            if (id != request.Id)
-            {
-                return NotFound();
-            }
+            //if (id != request.Id)
+            //{
+            //    return NotFound();
+            //}
 
             int identifier = await mediator.Send(request);
 
