@@ -88,6 +88,7 @@ namespace MediatRAndAutoMapper.WebUI.AppCode.DataSeeds
                         Name = "Zakir",
                         Surname = "Rahimli",
                         Age = 19,
+                        CreatedByUserId = 1,
                         GeneratedSecretKey = Guid.NewGuid().ToString(),
                         TicketNumber = "123"
                     });

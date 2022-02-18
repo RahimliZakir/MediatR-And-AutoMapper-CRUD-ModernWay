@@ -117,5 +117,12 @@ namespace MediatRAndAutoMapper.WebUI.Controllers
 
             return View();
         }
+
+        async public Task<IActionResult> SignOut()
+        {
+            await signInManager.SignOutAsync();
+
+            return Redirect(@"/signin.html");
+        }
     }
 }
