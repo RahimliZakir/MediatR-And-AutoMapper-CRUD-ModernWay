@@ -15,6 +15,8 @@ namespace MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule
         [Required(ErrorMessage = "Bu xana boş qoyula bilməz!")]
         public int Age { get; set; }
 
+        public string? GeneratedSecretKey { get; set; }
+
         [Required(ErrorMessage = "Bu xana boş qoyula bilməz!")]
         public string TicketNumber { get; set; } = null!;
 

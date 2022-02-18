@@ -12,6 +12,8 @@ namespace MediatRAndAutoMapper.WebUI.Models.Entities
         [Required(ErrorMessage = "Bu xana boş qoyula bilməz!")]
         public string Surname { get; set; } = null!;
 
+        public string? GeneratedSecretKey { get; set; }
+
         [Required(ErrorMessage = "Bu xana boş qoyula bilməz!")]
         public int Age { get; set; }
 
