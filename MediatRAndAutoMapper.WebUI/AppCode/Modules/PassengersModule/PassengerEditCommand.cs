@@ -40,6 +40,8 @@ namespace MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule
 
                 if (ctx.IsValid())
                 {
+                    request.CreatedDate = entity.CreatedDate;
+
                     Passenger passenger = mapper.Map(request, entity);
 
                     // 1. Way
