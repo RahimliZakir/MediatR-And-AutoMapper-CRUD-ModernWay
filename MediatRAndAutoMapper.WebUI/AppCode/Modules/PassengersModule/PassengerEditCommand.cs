@@ -30,7 +30,8 @@ namespace MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule
                     return 0;
                 }
 
-                Passenger entity = await db.Passengers.FirstOrDefaultAsync(p => p.Id.Equals(request.Id), cancellationToken);
+                Passenger entity = await db.Passengers.FirstOrDefaultAsync(p => p.Id.Equals(request.Id)
+                                         , cancellationToken);
 
                 if (entity == null)
                 {
