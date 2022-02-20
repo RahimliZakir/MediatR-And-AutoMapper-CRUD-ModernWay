@@ -26,7 +26,9 @@ namespace MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule
                 if (request.Id == null)
                     return null;
 
-                Passenger passenger = await db.Passengers.FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
+                Passenger passenger = await db.Passengers
+                                            .Include(p => p.CreatedByUser)
+                                            .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
 
                 PassengerViewModel vm = mapper.Map<PassengerViewModel>(passenger);
 

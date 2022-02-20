@@ -28,6 +28,7 @@ namespace MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule
                 {
                     Passenger passenger = mapper.Map<Passenger>(request);
                     passenger.GeneratedSecretKey = Guid.NewGuid().ToString();
+                    passenger.CreatedByUserId = ctx.GetUserId();
 
                     await db.Passengers.AddAsync(passenger, cancellationToken);
                     await db.SaveChangesAsync(cancellationToken);

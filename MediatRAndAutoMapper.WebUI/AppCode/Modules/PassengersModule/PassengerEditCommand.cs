@@ -42,6 +42,7 @@ namespace MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule
                 {
                     request.CreatedDate = entity.CreatedDate;
                     request.GeneratedSecretKey = entity.GeneratedSecretKey;
+                    request.CreatedByUserId = entity.CreatedByUserId;
                     Passenger passenger = mapper.Map(request, entity);
 
                     // 1. Way
