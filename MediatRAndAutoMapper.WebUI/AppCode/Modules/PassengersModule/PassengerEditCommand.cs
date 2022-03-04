@@ -46,12 +46,6 @@ namespace MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule
                     request.CreatedByUserId = entity.CreatedByUserId;
                     Passenger passenger = mapper.Map(request, entity);
 
-                    // 1. Way
-                    //db.Entry(passenger).State = EntityState.Modified;
-
-                    // 2. Way
-                    db.Passengers.Update(passenger);
-
                     await db.SaveChangesAsync(cancellationToken);
 
                     return entity.Id;
