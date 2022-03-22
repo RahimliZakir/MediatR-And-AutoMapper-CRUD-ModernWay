@@ -1,5 +1,6 @@
 ﻿using MediatRAndAutoMapper.WebUI.Models.Entities.Membership;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MediatRAndAutoMapper.WebUI.Models.Entities
 {
@@ -25,6 +26,10 @@ namespace MediatRAndAutoMapper.WebUI.Models.Entities
         [Required(ErrorMessage = "Bu xana boş qoyula bilməz!")]
         public string TicketNumber { get; set; } = null!;
 
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow.AddHours(4);
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime CreatedDate { get; set; }
+
+        // Other Way
+        //public DateTime CreatedDate { get; set; } = DateTime.UtcNow.AddHours(4);
     }
 }

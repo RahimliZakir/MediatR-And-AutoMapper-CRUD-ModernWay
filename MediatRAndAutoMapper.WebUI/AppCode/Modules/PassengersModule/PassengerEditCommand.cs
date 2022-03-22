@@ -41,7 +41,9 @@ namespace MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule
 
                 if (ctx.IsValid())
                 {
-                    request.CreatedDate = entity.CreatedDate;
+                    // Other Way
+                    //request.CreatedDate = entity.CreatedDate;
+
                     request.GeneratedSecretKey = entity.GeneratedSecretKey;
                     request.CreatedByUserId = entity.CreatedByUserId;
                     Passenger passenger = mapper.Map(request, entity);

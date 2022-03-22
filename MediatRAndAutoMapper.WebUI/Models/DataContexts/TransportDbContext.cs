@@ -64,6 +64,10 @@ namespace MediatRAndAutoMapper.WebUI.Models.DataContexts
             {
                 e.ToTable("UserLogins", "Membership");
             });
+
+            builder.Entity<Passenger>()
+                   .Property(p => p.CreatedDate)
+                   .HasDefaultValueSql("DATEADD(HOUR, 4, GETUTCDATE())");
         }
     }
 }

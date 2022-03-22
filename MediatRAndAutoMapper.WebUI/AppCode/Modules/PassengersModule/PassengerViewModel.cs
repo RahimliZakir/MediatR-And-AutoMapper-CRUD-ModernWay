@@ -25,6 +25,10 @@ namespace MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule
         [Required(ErrorMessage = "Bu xana boş qoyula bilməz!")]
         public string TicketNumber { get; set; } = null!;
 
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow.AddHours(4);
+
+        public DateTime CreatedDate { get; set; }
+
+        // Other Way
+        //public DateTime CreatedDate { get; set; } = DateTime.UtcNow.AddHours(4);
     }
 }
