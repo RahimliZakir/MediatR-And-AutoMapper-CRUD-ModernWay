@@ -25,6 +25,12 @@ namespace MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule
 
             async public Task<int> Handle(PassengerEditCommand request, CancellationToken cancellationToken)
             {
+                using (IServiceScope scope = ctx.ActionContext.HttpContext.RequestServices.CreateScope())
+                {
+                    // 2nd. Way For Prevent Eager Loading
+                    //TransportDbContext db = scope.ServiceProvider.GetService<TransportDbContext>();
+                }
+
                 if (request.Id == null || request.Id <= 0)
                 {
                     return 0;
@@ -32,6 +38,10 @@ namespace MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule
 
                 Passenger entity = await db.Passengers.FirstOrDefaultAsync(p => p.Id.Equals(request.Id)
                                          , cancellationToken);
+
+                // 1st. Way For Prevent Eager Loading
+                //Passenger entity = await db.Passengers.AsNoTracking().FirstOrDefaultAsync(p => p.Id.Equals(request.Id)
+                //                         , cancellationToken);
 
                 if (entity == null)
                 {
@@ -48,6 +58,8 @@ namespace MediatRAndAutoMapper.WebUI.AppCode.Modules.PassengersModule
                     request.CreatedByUserId = entity.CreatedByUserId;
                     Passenger passenger = mapper.Map(request, entity);
 
+                    // Way For Prevent Eager Loading
+                    //db.Passengers.Update(passenger);
                     await db.SaveChangesAsync(cancellationToken);
 
                     return entity.Id;
